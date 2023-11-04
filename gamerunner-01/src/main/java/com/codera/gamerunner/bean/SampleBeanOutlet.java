@@ -6,7 +6,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 // Call by Bean name, Method name or by Classname.class, Bean Type
 // Use try () {} - Try with Resources to rid close error
 
-public class SampleBeanOutput {
+public class SampleBeanOutlet {
 	public static void main(String[] args) {
 		try (var context = new AnnotationConfigApplicationContext(SampleBeanConfig.class)) {
 			context.getBean("username");

@@ -8,9 +8,9 @@ import com.codera.gamerunner.ream.RunHandler;
 // import com.codera.gamerunner.game.SuperGame;
 
 //
-public class GameOutput {
+public class GameMainOutlet {
 	public static void main(String[] args) {
-		try (var context = new AnnotationConfigApplicationContext(GameConfig.class)) {
+		try (var context = new AnnotationConfigApplicationContext(GameBeanConfig.class)) {
 			context.getBean(RunHandler.class).run();
 		}
 	}

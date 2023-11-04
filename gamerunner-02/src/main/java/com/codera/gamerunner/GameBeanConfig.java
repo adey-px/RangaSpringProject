@@ -9,7 +9,7 @@ import com.codera.gamerunner.ream.RunHandler;
 
 //
 @Configuration
-public class GameConfig {
+public class GameBeanConfig {
 	@Bean
 	public ConsoleHub gameConsole() {
 		var game = new MarioGame();
