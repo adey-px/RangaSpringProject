@@ -11,7 +11,7 @@ import com.codera.gamerunner.ream.RunHandler;
 // Make spring Boot to Auto Generate Java Beans
 // @Configuration allows creating of Beans thru using @Bean decorator
 // @ComponentScan allows Spring to look for Class in specified directory
-// - Spring picks the Class having @Component, and it auto creates its Beans & instance
+// Spring picks Class having @Component, auto creates Beans & instance for the Class
 
 @Configuration
 @ComponentScan("com.codera.gamerunner.game")
