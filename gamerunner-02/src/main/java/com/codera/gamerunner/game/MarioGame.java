@@ -2,6 +2,7 @@ package com.codera.gamerunner.game;
 
 import com.codera.gamerunner.ream.ConsoleHub;
 
+//
 public class MarioGame implements ConsoleHub {
     public void upsky() {
         System.out.println("Mario Up");
