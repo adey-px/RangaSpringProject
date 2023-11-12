@@ -1,4 +1,3 @@
-# Step by Step Lecture Guide
 ## Spring Framework
 ## Section 03: Using Spring Framework to Create & Manage Java Objects
 
