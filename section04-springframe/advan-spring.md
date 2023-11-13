@@ -91,7 +91,8 @@ import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 
 // @PostConstruct is used for inital process like fetching data from db
-// 	@PreDestroy is used for releasing any resources from the context
+// - it executes after dependency injection is done to perform any initializatn
+// @PreDestroy is used for releasing any resources from the context
 @Component 
 class SomeDependency {
 	public void getReady() {
@@ -142,6 +143,9 @@ import org.springframework.context.annotation.Configuration;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
+// Since J2EE is now owned by Eclipse, some Annotaions have changed name
+// @Named is @Component, @Inject is @Autowire in J2EE
+// Note: Add jakarta,inject to dependency in pom.xml
 @Named
 class BusinessService {
 	private DataService dataService;
@@ -174,46 +178,18 @@ public class CdiContextLauncherApplication {
 }
 ```
 
-### Step 10
-- Step 08 - Exploring Java Spring XML Configuration
-- Step 09 - Exploring Java Annotations vs XML Configuration for Java Spring Framework
-- Step 10 - Exploring Spring Framework Stereotype Annotations - Component and more
-
-#### /learn-spring-framework-02/src/main/java/com/in28minutes/learnspringframework/examples/c1/BusinessCalculationService.java Modified
-```
-import org.springframework.stereotype.Service;
-//@Component
-@Service
-```
----
-#### /learn-spring-framework-02/src/main/java/com/in28minutes/learnspringframework/examples/c1/MongoDbDataService.java Modified
-```
-import org.springframework.stereotype.Repository;
-//@Component
-@Repository
-```
----
-#### /learn-spring-framework-02/src/main/java/com/in28minutes/learnspringframework/examples/c1/MySqlDataService.java Modified
-```
-import org.springframework.stereotype.Repository;
-//@Component
-@Repository
-```
----
-#### /learn-spring-framework-02/src/main/java/com/in28minutes/learnspringframework/examples/d1/LazyInitializationLauncherApplication.java Modified
-```
-@SuppressWarnings("unused")
-private ClassA classA;
-```
----
-#### /learn-spring-framework-02/src/main/java/com/in28minutes/learnspringframework/examples/h1/XmlConfigurationContextLauncherApplication.java New
+Step 08 - How to use XML file Configuration for Spring framework
 ```java
 package com.in28minutes.learnspringframework.examples.h1;
-
 import java.util.Arrays;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.in28minutes.learnspringframework.game.GameRunner;
 
+// Pass the below xml configuration file in the context, Define the Beans in the xml file
+// No need to use @Componnent & @ComponentScan on the Application Class
+// Each Bean is ref by its id, class and constructor-arg value ddefined in xml config file
+// Use `context:component-scan` to ref a specific package in the project
+// Note: use of xml config is old practice, has been replaceed by use of Annotations
 public class XmlConfigurationContextLauncherApplication {
 	public static void main(String[] args) {
 		try (var context = new ClassPathXmlApplicationContext("contextConfiguration.xml")) {
@@ -222,40 +198,36 @@ public class XmlConfigurationContextLauncherApplication {
 			
 			System.out.println(context.getBean("name"));
 			System.out.println(context.getBean("age"));
-			context.getBean(GameRunner.class).run();
+
+			context.getBean(RunHandler.class).run();
 		}
 	}
 }
 ```
----
+### XML Spring Configuration for Bean definitions; `contextConfiguration.xml`, click link below to see example
+https://docs.spring.io/spring-framework/docs/4.2.x/spring-framework-reference/html/xsd-configuration.html
 
-#### /learn-spring-framework-02/src/main/resources/contextConfiguration.xml New
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-	<beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:context="http://www.springframework.org/schema/context" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
-	> 
-	<!-- bean definitions here -->
-	
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context.xsd"
+> 
+
 	<bean id="name" class="java.lang.String">
-		<constructor-arg value="Ranga" />
+		<constructor-arg value="Kingson" />
 	</bean>
 
 	<bean id="age" class="java.lang.Integer">
-		<constructor-arg value="35" />
+		<constructor-arg value="99" />
 	</bean>
 
-	<!-- <context:component-scan 
-		base-package="com.in28minutes.learnspringframework.game"/>
- 	-->
- 	<bean id="game" class="com.in28minutes.learnspringframework.game.PacmanGame"/>
+	<context:component-scan base-package="com.codera.gamerunner.game" /> 
+	
+ 	<bean id="game" class="com.codera.gamerunner.game.MarioGame" />
+	<bean id="game" class="com.codera.gamerunner.game.SoniaGame" />
  	
- 	<bean id="gameRunner" 
- 		class="com.in28minutes.learnspringframework.game.GameRunner">
+ 	<bean id="runHandler" class="com.codera.gamerunner.ream.RunHandler">
  		<constructor-arg ref="game" />
  	</bean>
 </beans>
 ```
----
