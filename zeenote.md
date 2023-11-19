@@ -3,7 +3,8 @@ https://github.com/in28minutes/master-spring-and-spring-boot
 
 ### Keyword Note
 Create Project
-- open https://start.spring.io follow guide to create new maven-spring project, download and open with vs code; project folder structure is as stated below:
+- open https://start.spring.io follow guide to create new maven-spring project
+- download and open with vscode; project folder structure is as stated below:
 
 Folder Layout
 - artifact name is `gamerunner-01` which reps core application Class consisting of `main` method requires by JVM to run the project  
